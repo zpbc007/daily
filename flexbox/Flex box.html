@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet">
+    <style>
+        body {
+            width: 95%;
+            height: 100%;
+            margin: 0 auto;
+            background-color: #2d2d2d;
+        }
+
+        h1, h2, p {
+            text-align: center;
+            color: #f3f3f3;
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        h1 {
+            margin: 10px;
+        }
+
+        .demo-wrap {
+            background-color: #4e4e4f;
+            height: 375px;
+            width: 80%;
+            margin: 0 auto;
+            border: 2px solid #f3f3f3;
+            border-radius: 5px;
+            display: flex;
+        }
+
+        .box {
+            background-color: #3c78b7;
+            border-radius: 5px;
+            margin: 5px;
+            padding: 10px 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .box p {
+            font-size: .8em;
+        }
+
+        .one {
+            background-color: #9fbee0;
+        }
+
+        .two {
+            background-color: #6597cd;
+        }
+
+        .three {
+            background-color: #2c5887;
+        }
+
+        .four {
+            background-color: #19324d;
+        }
+
+        .property-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .property-box {
+            width: 32%;
+            padding: 5px;
+        }
+        .property-box h2 {
+            font-size: 1.2em;
+            background-color: #3c78b7;
+            padding: 5px 0;
+            border-radius: 5px;
+            margin-top: 0;
+            font-size: 1em;
+        }
+        .property-box p {
+            background-color: #4e4e4f;
+            padding: 3px;
+            margin: 5px auto;
+            width: 90%;
+            border-radius: 5px;
+        }
+        .property-box .selected {
+            border: 2px solid #3c78b7;
+        }
+
+        .fd-row {
+            flex-direction: row;
+        }
+
+        .fd-row-reverse {
+            flex-direction: row-reverse;
+        }
+
+        .fd-column {
+            flex-direction: column;
+        }
+
+        .fd-column-reverse {
+            flex-direction: column-reverse;
+        }
+
+        .jc-flex-start {
+            justify-content: flex-start;
+        }
+
+        .jc-flex-end {
+            justify-content: flex-end;
+        }
+
+        .jc-center {
+            justify-content: center;
+        }
+
+        .jc-space-between {
+            justify-content: space-between;
+        }
+
+        .jc-space-around {
+            justify-content: space-around;
+        }
+
+        .ai-flex-start {
+            align-items: flex-start;
+        }
+
+        .ai-flex-end {
+            align-items: flex-end;
+        }
+
+        .ai-stretch {
+            align-items: stretch;
+        }
+
+        .ai-center {
+            align-items: center;
+        }
+
+        .ai-baseline {
+            align-items: baseline;
+        }
+
+    </style>
+
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+
+</head>
+<body>
+<h1>Flexbox 示例</h1>
+<div class='demo-wrap ai-flex-start'>
+    <div class='box one'><p>Flex Item</p></div>
+    <div class='box two'><p>Flex Item</p></div>
+    <div class='box three'><p>Flex Item</p></div>
+    <div class='box four'><p>Flex Item</p></div>
+</div><br>
+<div class='property-container'>
+    <div class='flex-direction-box property-box'>
+        <h2>flex-direction</h2>
+        <p class='f-d-r property selected'>row</p>
+        <p class='f-d-r-r property'>row-reverse</p>
+        <p class='f-d-c property'>column</p>
+        <p class='f-d-c-r property'>column-reverse</p>
+    </div>
+    <div class='justify-content-box property-box'>
+        <h2>justify-content</h2>
+        <p class='j-c-f-s property selected'>flex-start</p>
+        <p class='j-c-f-e property'>flex-end</p>
+        <p class='j-c-c property'>center</p>
+        <p class='j-c-s-b property'>space-between</p>
+        <p class='j-c-s-a property'>space-around</p>
+    </div>
+    <div class='align-items-box property-box'>
+        <h2>align-items</h2>
+        <p class='a-i-f-s property selected'>flex-start</p>
+        <p class='a-i-f-e property'>flex-end</p>
+        <p class='a-i-s property'>stretch</p>
+        <p class='a-i-c property'>center</p>
+        <p class='a-i-b property'>baseline</p>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+
+        // SELECTED CLASS
+
+        $('.property').on('click', function() {
+            $(this).addClass('selected').siblings().removeClass('selected');
+        });
+
+        // FLEX-DIRECTION
+
+        $('.f-d-r').on('click', function() {
+            $('.demo-wrap').removeClass('fd-row fd-row-reverse fd-column fd-column-reverse').addClass('fd-row');
+        });
+        $('.f-d-r-r').on('click', function() {
+            $('.demo-wrap').removeClass('fd-row fd-row-reverse fd-column fd-column-reverse').addClass('fd-row-reverse');
+        });
+        $('.f-d-c').on('click', function() {
+            $('.demo-wrap').removeClass('fd-row fd-row-reverse fd-column fd-column-reverse').addClass('fd-column');
+        });
+        $('.f-d-c-r').on('click', function() {
+            $('.demo-wrap').removeClass('fd-row fd-row-reverse fd-column fd-column-reverse').addClass('fd-column-reverse');
+        });
+
+        // JUSTIFY-CONTENT
+
+        $('.j-c-f-s').on('click', function() {
+            $('.demo-wrap').removeClass('jc-flex-start jc-flex-end jc-center jc-space-between jc-space-around').addClass('jc-flex-start');
+        });
+        $('.j-c-f-e').on('click', function() {
+            $('.demo-wrap').removeClass('jc-flex-start jc-flex-end jc-center jc-space-between jc-space-around').addClass('jc-flex-end');
+        });
+        $('.j-c-c').on('click', function() {
+            $('.demo-wrap').removeClass('jc-flex-start jc-flex-end jc-center jc-space-between jc-space-around').addClass('jc-center');
+        });
+        $('.j-c-s-b').on('click', function() {
+            $('.demo-wrap').removeClass('jc-flex-start jc-flex-end jc-center jc-space-between jc-space-around').addClass('jc-space-between');
+        });
+        $('.j-c-s-a').on('click', function() {
+            $('.demo-wrap').removeClass('jc-flex-start jc-flex-end jc-center jc-space-between jc-space-around').addClass('jc-space-around');
+        });
+
+        // ALIGN-ITEMS
+
+        $('.a-i-f-s').on('click', function() {
+            $('.demo-wrap').removeClass('ai-flex-start ai-flex-end ai-stretch ai-center ai-baseline').addClass('ai-flex-start');
+        });
+        $('.a-i-f-e').on('click', function() {
+            $('.demo-wrap').removeClass('ai-flex-start ai-flex-end ai-stretch ai-center ai-baseline').addClass('ai-flex-end');
+        });
+        $('.a-i-s').on('click', function() {
+            $('.demo-wrap').removeClass('ai-flex-start ai-flex-end ai-stretch ai-center ai-baseline').addClass('ai-stretch');
+        });
+        $('.a-i-c').on('click', function() {
+            $('.demo-wrap').removeClass('ai-flex-start ai-flex-end ai-stretch ai-center ai-baseline').addClass('ai-center');
+        });
+        $('.a-i-b').on('click', function() {
+            $('.demo-wrap').removeClass('ai-flex-start ai-flex-end ai-stretch ai-center ai-baseline').addClass('jc-baseline');
+        });
+
+    });
+</script>
+</body>

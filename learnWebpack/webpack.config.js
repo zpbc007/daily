@@ -1,6 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const webpack = require('webpack')
 
 module.exports = {
     entry: {
@@ -17,12 +18,13 @@ module.exports = {
         // 设定输出的html
         new HtmlWebpackPlugin({
             title: 'Output Management'
-        })
+        }),
+        // 热更新
+        new webpack.NamedModulesPlugin(),
+        new webpack.HotModuleReplacementPlugin()
     ],
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        // 服务端使用
-        publicPath: '/'
     },
 }

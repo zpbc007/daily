@@ -1,5 +1,7 @@
 import { cube } from './math'
 
+if () {} 
+
 function component () {
     var element = document.createElement('pre')
     

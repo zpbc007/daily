@@ -13,3 +13,8 @@ export const toggleTodo = (id: string) => ({
     type: actionTypes.TOGGLE_TODO,
     id: id
 })
+
+export const removeTodo = (id: string) => ({
+    type: actionTypes.REMOVE_TODO,
+    id: id
+})

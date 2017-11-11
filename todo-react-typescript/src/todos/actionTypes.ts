@@ -1,0 +1,1 @@
+export enum actionTypes {ADD_TODO = 0, TOGGLE_TODO = 1, REMOVE_TODO = 2}

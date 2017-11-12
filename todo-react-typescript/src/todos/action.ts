@@ -2,12 +2,26 @@ import { actionTypes } from './actionTypes'
 
 let nextTodoId: number = 0
 
-export const addTodo = (text: string) => ({
-    type: actionTypes.ADD_TODO,
-    completed: false,
-    id: nextTodoId ++,
-    text: text
-})
+class action {
+    id: number
+    type: number
+    constructor (id: number, type: number) {
+        this.id = id
+        this.type = type
+    }
+}
+
+class addTodo extends action {
+    constructor (id: number, type: number, text: string) {
+        super(id, type)
+        this.text = text
+    }
+    text: string
+}
+
+export const addTodoAction = (text: string) => (
+    new addTodo(nextTodoId ++, actionTypes.ADD_TODO, text)
+ )
 
 export const toggleTodo = (id: string) => ({
     type: actionTypes.TOGGLE_TODO,

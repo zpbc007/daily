@@ -1,0 +1,1 @@
+export enum ActionTypes {SET_FILTER = 0}

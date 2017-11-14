@@ -1,8 +1,9 @@
 import { ActionTypes } from './actionTypes'
-import { Action } from './common'
+import { SetFilter } from './actions'
 import { FilterTypes } from '../constants'
+import { FilterState } from '../StoreTypes'
 
-export default (state: string = FilterTypes.ALL, action: Action): string => {
+export default (state: string = FilterTypes.ALL, action: SetFilter): FilterState => {
     switch (action.type) {
         case ActionTypes.SET_FILTER:
             return action.filter

@@ -1,24 +1,24 @@
-import {Component} from 'react'
+import * as React from 'react'
 
-import{ addTodo } from '../actions'
+import { addTodo, Action } from '../actions'
 import { connect, Dispatch } from 'react-redux'
 
 export interface Props {
     onAdd: (value: string) => string
 }
 
-class AddTodo extends Component<Props, object> {
+class AddTodo extends React.Component<Props, object> {
 
     input: HTMLInputElement
 
-    constructor (props: any, context: any) {
+    constructor (props: Props, context: object) {
         super(props, context)
 
         this.onSubmit = this.onSubmit.bind(this)
         this.refInput = this.refInput.bind(this)
     }
 
-    onSubmit (ev: Event) {
+    onSubmit (ev: React.FormEvent<HTMLFormElement>) {
         // 阻止页面刷新
         ev.preventDefault()
 
@@ -34,16 +34,27 @@ class AddTodo extends Component<Props, object> {
     refInput (node: HTMLInputElement) {
         this.input = node
     }
+
+    render () {
+        return (
+            <div className="add-todo">
+                <form onSubmit={this.onSubmit}>
+                    <input className="new-todo" ref={this.refInput}/>
+                    <button className="add-btn" type="submit">
+                        添加
+                    </button>
+                </form>    
+            </div>
+        )
+    }
 } 
 
-const mapDispatchToProps = (dispatch: Dispatch<>) => {
+const mapDispatchToProps = (dispatch: Dispatch<Action>) => {
     return {
-        onAdd: (text)=> {
+        onAdd: (text: string) => {
             dispatch(addTodo(text))
         } 
     }
 }
 
 export default connect(null, mapDispatchToProps)(AddTodo)
-
-

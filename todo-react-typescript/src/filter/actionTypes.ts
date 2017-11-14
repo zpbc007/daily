@@ -1,1 +1,3 @@
-export enum ActionTypes {SET_FILTER = 0}
+export enum ActionTypes {
+    SET_FILTER = 'SET_FILTER'
+}

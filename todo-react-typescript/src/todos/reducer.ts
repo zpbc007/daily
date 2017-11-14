@@ -1,11 +1,16 @@
 import { ActionTypes } from './actionTypes'
-import { Action, TodoItem } from './common'
+import { Action, AddTodo } from './actions'
+import { TodoState } from '../StoreTypes'
 
-export default (state: TodoItem[] = [], action: Action): TodoItem[] => {
+export default (state: TodoState[] = [], action: Action): TodoState[] => {
     switch (action.type) {
         case ActionTypes.ADD_TODO:
             return [
-                new TodoItem(action.id, false, action.text), 
+                {
+                    id: action.id,
+                    completed: false,
+                    text: (<AddTodo> action).text
+                },
                 ...state]
         case ActionTypes.TOGGLE_TODO:
             return state.map((todoItem) => {

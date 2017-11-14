@@ -1,6 +1,13 @@
 import { ActionTypes } from './actionTypes'
-import { Action } from './common'
 
-export const setFilter = (filterType: string): Action => (
-    new Action(ActionTypes.SET_FILTER, filterType)
+export interface SetFilter {
+    type: string
+    filter: string
+}
+
+export const setFilter = (filterType: string): SetFilter => (
+    {
+        type: ActionTypes.SET_FILTER,
+        filter: filterType
+    }
 )

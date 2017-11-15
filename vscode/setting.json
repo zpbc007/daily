@@ -1,0 +1,45 @@
+{
+    "workbench.iconTheme": "vscode-icons",
+    "terminal.integrated.shell.windows": "C:\\windows\\System32\\cmd.exe",
+    "psi-header.config": {
+        "forceToTop": true
+    },
+    "psi-header.changes-tracking": {
+        "isActive": true,
+        "autoHeader": "autoSave"
+    },
+    "psi-header.license-text": [
+        "All shall be well and all shall be well and all manner of things shall be well.",
+        "We're doomed!"
+    ],
+    "psi-header.variables": [
+        ["author", "ZhaoPeng"],
+        ["authoremail", "719197352@qq.com"]
+    ],
+    "psi-header.templates": [
+        {
+            "language": "*",
+            "template": [
+                "File: <<filepath>>",
+                "Project: <<projectpath>>",
+                "Created Date: <<filecreated('YYYY-MM-DD')>>",
+                "Author: <<author>>",
+                "-----",
+                "上次修改时间: <<dateformat('YYYY-MM-DD')>>",
+                "Modified By: <<author>>",
+                "-----",
+                "哈哈哈哈隔"
+            ]
+        }
+    ],
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false,
+    "files.autoSave": "afterDelay",
+    "files.eol": "\n",
+    "workbench.colorTheme": "Eva Dark Bold",
+    "editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace",
+    "editor.fontLigatures": true,
+    "editor.fontSize": 16,
+    "editor.lineHeight": 24,
+    "editor.rulers": [120]
+}

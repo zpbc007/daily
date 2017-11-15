@@ -2,7 +2,6 @@ import * as React from 'react'
 
 import Link from './link'
 import { FilterTypes } from '../../constants'
-import StoreState, { TodoState, FilterState } from '../../StoreTypes'
 
 const Filters = () => {
     return (

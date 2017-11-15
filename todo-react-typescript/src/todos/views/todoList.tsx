@@ -37,7 +37,7 @@ const selectVisibleTodos = (todos: TodoState[], filter: FilterState): TodoState[
         case FilterTypes.COMPLETED:
             return todos.filter(item => item.completed)
         case FilterTypes.UNCOMPLETED:
-            return todos.filter(item => item.completed)
+            return todos.filter(item => !item.completed)
         default:
             throw new Error('unsupported filter')
     }

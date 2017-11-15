@@ -1,6 +1,7 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
-import { setFilter } from '../actions'
+import { connect, Dispatch } from 'react-redux'
+import { setFilter, SetFilter } from '../actions'
+import StoreState from '../../StoreTypes'
 
 const Link = ({active, children, onClick}: 
             {
@@ -28,8 +29,16 @@ const Link = ({active, children, onClick}:
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state: StoreState, ownProps: {filter: string}) => {
     return {
         active: state.filter === ownProps.filter
     }
 }
+
+const mapDispatchToProps = () => (dispatch: Dispatch<SetFilter>, ownProps: {filter: string}) => ({
+    onClick: () => {
+        dispatch(setFilter(ownProps.filter));
+      }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Link);

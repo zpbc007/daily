@@ -9,37 +9,50 @@ export interface Props {
 
 class AddTodo extends React.Component<Props, object> {
 
-    input: HTMLInputElement
+    state: {
+        value: string
+    }
 
     constructor (props: Props, context: object) {
         super(props, context)
 
         this.onSubmit = this.onSubmit.bind(this)
-        this.refInput = this.refInput.bind(this)
+        this.onInputChange = this.onInputChange.bind(this)
+        this.state = {
+            value: ''
+        }        
     }
 
     onSubmit (ev: React.FormEvent<HTMLFormElement>) {
         // 阻止页面刷新
         ev.preventDefault()
 
-        const input = this.input
-        if (!input.value.trim()) {
+        const input = this.state.value
+        if (!input.trim()) {
             return
         }
 
-        this.props.onAdd(input.value)
-        input.value = ''
+        this.props.onAdd(input)
+        this.setState({
+            value: ''
+        })
     }
 
-    refInput (node: HTMLInputElement) {
-        this.input = node
+    onInputChange (ev: React.ChangeEvent<HTMLInputElement>) {
+        this.setState({
+            value: ev.target.value
+        })
     }
 
     render () {
         return (
             <div className="add-todo">
                 <form onSubmit={this.onSubmit}>
-                    <input className="new-todo" ref={this.refInput}/>
+                    <input 
+                        className="new-todo" 
+                        onChange={this.onInputChange}
+                        value={this.state.value}
+                    />
                     <button className="add-btn" type="submit">
                         添加
                     </button>

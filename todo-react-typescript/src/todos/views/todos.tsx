@@ -2,6 +2,8 @@ import * as React from 'react'
 import AddTodo from './addTodo'
 import TodoList from './todoList'
 
+import './style.css'
+
 class Todos extends React.Component {
     render () {
         return (

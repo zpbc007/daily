@@ -3,6 +3,8 @@ import * as React from 'react'
 import Link from './link'
 import { FilterTypes } from '../../constants'
 
+import './style.css'
+
 const Filters = () => {
     return (
         <p className="filters">

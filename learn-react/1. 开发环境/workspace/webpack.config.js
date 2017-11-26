@@ -51,8 +51,11 @@ module.exports = {
                 colors: true, // 终端输出为彩色
                 historyApiFallback: true, // 不跳转
                 inline: true, // 实时刷新,
-                hot: true // 使用热加载插件
+                hot: true, // 使用热加载插件,
             }
         })
-    ]
+    ],
+    devServer: {
+        port: 8081
+    }
 }

@@ -32,3 +32,8 @@ Bonus.prototype.getBonus = function () {
     return this.strategy.calculate(this.salary)
 }
 
+var bonus = new Bonus()
+bonus.setSalary(1000)
+bonus.setStrategy(new performanceS)
+bonus.getBonus()
+

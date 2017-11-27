@@ -15,7 +15,8 @@ module.exports = {
         alias: {
             app: path.resolve(__dirname, './app'),
             components: 'app/components',
-            containers: 'app/containers' 
+            containers: 'app/containers',
+            router: 'app/router'
         }
     },
     module: {

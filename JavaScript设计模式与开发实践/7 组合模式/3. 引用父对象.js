@@ -48,7 +48,7 @@ File.prototype.scan = function () {
         }
     }
 }
-
+ 
 var floder = new Folder('学习资料')
 var folder1 = new Folder('JavaScript')
 var file1 = new Folder('深入浅出node')

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="../d3/d3.js"></script>
+<body>
+    <p>
+        记录<br/>
+        1. 链式语法
+    </p>
+    <hr/>
+    <p class='test'>Hello World 1</p>
+    <p class='test'>Hello World 2</p>
+</body>
+<script>
+    var p = d3.select('body')
+              .selectAll('.test')
+              .text('哈哈哈')
+    p.style('color', 'red')
+     .style('font-size', '72px')
+</script>
+</html>

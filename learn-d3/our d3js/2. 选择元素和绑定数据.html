@@ -6,8 +6,39 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
-<script ></script>
+<script src="../d3/d3.js"></script>
 <body>
-    
+    <p>
+        datum(): 绑定一个数据到选择集上
+        data(): 绑定一个数组到选择集上，数组的各项值分别与选择集的各元素绑定
+    </p>
+    <hr/>
+    <p class="test">Apple</p>
+    <p class="test">Apple</p>
+    <p class="test">Apple</p>
+
+    <p class="test1">Apple</p>
+    <p class="test1">Pear</p>
+    <p class="test1">Banana</p>
 </body>
+<script>
+    var str = "China"
+
+    var body = d3.select("body")
+    var p = body.selectAll(".test")
+
+    p.datum(str)
+
+    p.text(function(d, i) {
+        return `第${i}个元素绑定的数据是${d}`
+    })
+
+    //==========分割线
+    var dataset = ['i like doges', 'i like cats', 'i like snakes']
+
+    var p2 = body.selectAll('.test1')
+    p2.data(dataset).text(function (d, i) {
+        return d
+    })
+</script>
 </html>

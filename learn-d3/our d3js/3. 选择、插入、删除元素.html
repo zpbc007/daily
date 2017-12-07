@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="../d3/d3.js"></script>
+<body>
+    <p>Apple</p>
+    <p id="myid" class="myclass">Pear</p>
+    <p class="myclass">Banana</p>
+</body>
+<script>
+    // 选择元素
+    var body = d3.select("body")
+    // 选择一个元素
+    var p1 = body.select("p")
+    p1.style("color", "red")
+
+    // 选择标签
+    var p2 = body.selectAll("p")
+    p2.style("color", "blue")
+
+    // 选择id
+    var p3 = body.select("#myid")
+    p3.style("color", "red")
+
+    // 选择class
+    var p4 = body.select(".myclass")
+    p4.style("color", "blue")
+
+
+    // 插入元素
+    body.append("p").text("append p element")
+    body.insert("p", "#myid").text("insert p element")
+
+
+    // 删除元素
+    p1.remove()
+</script>
+</html>

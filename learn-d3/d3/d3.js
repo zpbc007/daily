@@ -76,7 +76,7 @@ var cross = function(values0, values1, reduce) {
   }
 
   return values;
-};
+  };
 
 var descending = function(a, b) {
   return b < a ? -1 : b > a ? 1 : b >= a ? 0 : NaN;

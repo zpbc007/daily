@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="../d3/d3.js"></script>
+<body>
+    
+</body>
+<script>
+    var sales = [
+        {product: 'Hoodie', count: 7},
+        {product: 'Jacket', count: 6},
+        {product: 'Snuggie', count: 9}
+    ]
+
+    var maxCount = d3.max(sales, d => d.count)
+        xScale = d3.scaleLinear()
+            .domain([0, maxCount])
+            .range([0, 300])
+        yScale = d3.scaleOrdinal()
+        .rangeRoundBands([0, 75])
+        .domain(sales.map(function(d, i) {
+          return d.product;
+        }));
+        svg = d3.select('body')
+            .append('svg')
+            .attr('width', 400)
+            .attr('height', 150)
+        rects = svg.selectAll('rect')
+            .data(sales)
+            .enter()
+            .append('rect')
+            .attr('x', xScale(0))
+            .attr('y', d => yScale(d.product))
+            .attr('height', yScale.rangeBand())
+            .attr('width', d => xScale(d.count))
+    
+    
+</script>
+</html>

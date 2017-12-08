@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="../d3/d3.js"></script>
+<body>
+    
+</body>
+<script>
+    var data = [
+        {date: '2014-01-01', amount: 10},
+        {date: '2014-02-01', amount: 20},
+        {date: '2014-03-01', amount: 30},
+        {date: '2014-04-01', amount: 80},
+    ]
+
+    var yScale = d3.scaleLinear()
+        .domain([0, d3.max(data, data => data.amount)])
+        .range([200, 0])
+    console.log('y(0)', yScale(0))
+    console.log('y(80)', yScale(80))
+
+    var xScale = d3.scaleTime()
+        .domain(d3.extent(data, data => Date.parse(data.date)))
+        .range([0, 300])
+
+    var xAxis = d3.axisBottom(xScale)
+        .ticks(4)
+    
+    var svg = d3.select('body')
+        .append('svg')
+        .attr('width', 400)
+        .attr('height', 150)
+
+    svg.append('g')
+        .attr('class', 'x axis')
+        .call(xAxis)
+    
+</script>
+</html>

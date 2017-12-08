@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="../../d3/d3.js"></script>
+<body>
+    
+</body>
+<script>
+    let dataSet = [undefined, null, NaN, -10, 0, 10, 30, 50]
+
+    // 大部分忽略undefined, null, NaN
+    // 统计
+    // 最小值
+    console.log('最小值', d3.min(dataSet, (i)=> 2*i))
+    // 最大值
+    console.log('最大值', d3.max(dataSet))
+    // 最大和最小
+    console.log('最大和最小', d3.extent(dataSet))
+    // 求和
+    console.log('求和', d3.sum(dataSet))
+    // 平均值
+    console.log('平均值' ,d3.mean(dataSet))
+    // 中位数
+    console.log('中位数', d3.median(dataSet))
+    // 分位数 不会忽略ndefined, null, NaN
+    console.log('分位数', d3.quantile(dataSet, 0.1))
+    // 总体方差的无偏估计
+    console.log('总体方差的无偏估计', d3.variance(dataSet))
+    // 标准差
+    console.log('标准差', d3.deviation(dataSet))
+</script>
+</html>

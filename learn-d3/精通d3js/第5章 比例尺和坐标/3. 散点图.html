@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="../../d3v3/d3.v3.js"></script>
+<style>
+    .axis path,
+    .axis line{
+        fill: none;
+        stroke: black;
+        shape-rendering: crispEdges;
+    }
+    .axis test{
+        font-family: sans-serif;
+        font-size: 11px;
+    }
+</style>
+<body>
+    
+</body>
+<script>
+    var width = 600
+        height = 600
+        xAxisWidth = 300
+        yAxisWidth = 300
+        center = [[0.5, 0.5], [0.7, 0.8], [0.4, 0.9],
+            [0.11, 0.32], [0.88, 0.25], [0.75, 0.12],
+            [0.5, 0.1], [0.2, 0.3], [0.4, 0.1], [0.6, 0.7]]
+        padding = {top: 20, right: 20, bottom: 20, left: 50}
+
+    var svg = d3.select('body')
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height)
+        xScale = d3.scale.linear()
+            .domain([0, 1.2 * d3.max(center, d => d[0])])
+            .range([0, xAxisWidth])
+        yScale =d3.scale.linear()
+            .domain([0, 1.2 * d3.max(center, d => d[1])])
+            .range([yAxisWidth, 0]) 
+        xAxis = d3.svg.axis()
+            .scale(xScale)
+            .orient('bottom')
+        yAxis = d3.svg.axis()
+            .scale(yScale)
+            .orient('left')
+        circle = svg.selectAll('circle')
+            .data(center)
+            .enter()
+            .append('circle')
+            .attr('fill', 'black')
+            .attr('cx', d => padding.left + xScale(d[0]))
+            .attr('cy', d => height - padding.bottom - yAxisWidth + yScale(d[1]))
+            .attr('r', 5)
+    
+    svg.append('g')
+        .attr('class', 'axis')
+        .attr('transform', `translate(${padding.left}, ${height - padding.bottom})`)
+        .call(xAxis)    
+    svg.append('g')
+        .attr('class', 'axis')
+        .attr('transform', `translate(${padding.left}, ${height - padding.bottom - yAxisWidth})`)
+        .call(yAxis)  
+</script>
+</html>

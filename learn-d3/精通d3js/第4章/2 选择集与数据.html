@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="../d3v3/d3.v3.js"></script>
+<body>
+    <p class="test1"></p>
+    <p class="test1"></p>
+    <p class="test1"></p>
+    <script>
+        // datum
+        var p = d3.select('body').selectAll('.test1')
+        p.datum('thunder').text((d, i) => `${d} ${i}`)
+
+        // 绑定的数据能被子元素继承
+        p.datum('thunder')
+            .append('span')
+            .text((d, i) => ` ${d}`)
+    </script>
+    <hr/>
+    <p class="test2"></p>
+    <p class="test2"></p>
+    <p class="test2"></p>
+    <script>
+        // data
+        var dataset = [3, 6, 9]
+        var p2 = d3.select('body').selectAll('.test2')
+        var update = p2.data(dataset)
+        console.log(update)
+    </script>
+    <hr/>
+    <p class="test3"></p>
+    <p class="test3"></p>
+    <p class="test3"></p>
+    <script>
+        // 绑定的顺序
+        var persons = [
+            {id: 3, name: '张三'},
+            {id: 6, name: '李四'},
+            {id: 9, name: '王五'}
+        ]
+        var p3 = d3.select('body').selectAll('.test3')
+        p3.data(persons)
+            .text(d => `${d.id} : ${d.name}`)
+
+        // 更新数据
+        persons = [
+            {id: 6, name: '张三'},
+            {id: 9, name: '李四'},
+            {id: 3, name: '王五'}
+        ]
+        p3.data(persons, d => d.id)
+            .text(d => `${d.id} : ${d.name}`)
+    </script>
+    <hr/>
+    <p class="test4"></p>
+    <script>
+        // enter的处理方法
+        var dataset = [3, 6, 9]
+        var p = d3.select('body').selectAll('.test4')
+
+        var update = p.data(dataset)
+        var enter = update.enter()
+
+        // update部分直接修改内容
+        update.text(d => d)
+        // enter部分添加元素再修改内容
+        enter.append('p')
+            .text(d => d)
+    </script>
+    <hr/>
+    <p class="test5">1</p>
+    <p class="test5">1</p>
+    <p class="test5">1</p>
+    <p class="test5">1</p>
+    <p class="test5">1</p>
+    <script>
+        var dataset = [10, 20 ,30]
+        var p = d3.select('body').selectAll('.test5')
+
+        var update = p.data(dataset)
+        var exit = update.exit()
+
+         // update部分直接修改内容
+        update.text(d => d)
+        // exit部分删除
+        exit.remove()
+    </script>
+    <hr/>
+    <p class="test6"></p>
+    <script>
+        var dataset = [10, 20 ,30]
+        var p = d3.select('body').selectAll('.test6')
+
+        var update = p.data(dataset)
+        var enter = update.enter()
+        var exit = update.exit()
+
+        // 1.update
+        update.text(d => d)
+        // 2.enter
+        enter.append('p')
+            .text(d => d)
+        // 3.exit
+        exit.remove()
+    </script>
+</body>
+</html>

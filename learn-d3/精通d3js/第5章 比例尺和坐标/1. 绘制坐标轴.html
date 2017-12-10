@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="../../d3v3/d3.v3.js"></script>
+<style>
+    .axis path,
+    .axis line{
+        fill: none;
+        stroke: black;
+        shape-rendering: crispEdges;
+    }
+    .axis test{
+        font-family: sans-serif;
+        font-size: 11px;
+    }
+</style>
+<body>
+    
+</body>
+<script>
+    var width = 600
+        height = 1200
+        svg = d3.select('body')
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height)
+        xScale = d3.scale.linear()
+            .domain([0, 10])
+            .range([0, 300])
+        axis = d3.svg.axis()
+            .scale(xScale)
+            .orient('bottom')
+        gAxis = svg.append('g')
+            .attr('transform', 'translate(10, 10)')
+            .attr('class', 'axis')
+    
+    axis(gAxis)
+    
+    var axisLeft = d3.svg.axis()
+            .scale(xScale)
+            .orient('left')
+            .ticks(5)
+            .tickSize(6, 10)
+        axisRight = d3.svg.axis()
+            .scale(xScale)
+            .orient('right')
+            .tickValues([3, 4, 5, 6, 7])
+            .tickFormat(d3.format('$0.1f'))
+        gAxisLeft = svg.append('g')
+            .attr('transform', 'translate(20, 50)')
+            .attr('class', 'axis')
+        gAxisRight = svg.append('g')
+            .attr('transform', 'translate(30, 50)')
+            .attr('class', 'axis')
+    
+        gAxisLeft.call(axisLeft)
+        gAxisRight.call(axisRight)
+
+    var linear = d3.scale.linear()
+            .domain([0, 1])
+            .range([0, 500])
+        pow = d3.scale.pow()
+            .exponent(2)
+            .domain([0, 1])
+            .range([0, 500])
+        log = d3.scale.log()
+            .domain([0.01, 1])
+            .range([0, 500])
+        linearAxis = d3.svg.axis()
+            .scale(linear)
+            .orient('botton')
+        powAxis = d3.svg.axis()
+            .scale(pow)
+            .orient('botton')
+        logAxis = d3.svg.axis()
+            .scale(log)
+            .orient('botton')
+        gAxisLinear = svg.append('g')
+            .attr('transform', 'translate(10, 400)')
+            .attr('class', 'axis')
+        gAxisPow = svg.append('g')
+            .attr('transform', 'translate(10, 440)')
+            .attr('class', 'axis')
+        gAxisLog = svg.append('g')
+            .attr('transform', 'translate(10, 480)')
+            .attr('class', 'axis')
+    
+    gAxisLinear.call(linearAxis)
+    gAxisPow.call(powAxis)
+    gAxisLog.call(logAxis)
+</script>
+</html>

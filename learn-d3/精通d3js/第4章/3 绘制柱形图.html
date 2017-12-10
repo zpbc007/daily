@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="../d3v3/d3.v3.js"></script>
+<body>
+    <button onclick="mysort()">排序</button>
+    <button onclick="myadd()">增加数据</button>
+</body>
+<script>
+    // 定义数据
+    var dataset = [50, 43, 120, 78, 99, 176, 142]
+        width = 400
+        height = 400
+        // 定义画布
+        svg = d3.select('body')
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height)
+        // 定义画布边距
+        padding = {top: 20, right: 20, bottom: 20, left: 20}
+        // 定义矩形宽度(包括空白)
+        rectStep = 35
+        // 矩形宽度（不包括空白）
+        rectWidth = 30
+        // 添加矩形
+        rect = svg.selectAll('rect')
+            .data(dataset)
+            .enter()
+            .append('rect')
+            .attr('fill', 'steelblue')
+            .attr('x', (d, i) => padding.left + i * rectStep)
+            .attr('y', d => height - padding.bottom - d)
+            .attr('width', rectWidth)
+            .attr('height', d => d)
+        // 添加文字
+        text = svg.selectAll('text')
+            .data(dataset)
+            .enter()
+            .append('text')
+            .attr('fill', 'white')
+            .attr('font-size', '14px')
+            .attr('text-anchor', 'middle')
+            .attr('x', (d, i) => padding.left + i * rectStep)
+            .attr('y', d => height - padding.bottom - d)
+            .attr('dx', rectWidth / 2) 
+            .attr('dy', '1em')
+            .text(d => d)
+
+    function draw () {
+        // 获取矩形update部分
+        var updateRect = svg.selectAll('rect')
+                .data(dataset)
+            // 获取矩形enter部分
+            enterRect = updateRect.enter()
+            // 获取矩形exit部分
+            exitRect = updateRect.exit()
+            updateText = svg.selectAll('text')
+                .data(dataset)
+            enterText = updateText.enter()
+            exitText = updateRect.exit()
+        
+        updateRect.attr('fill', 'steelblue')
+            .attr('x', (d, i) => padding.left + i * rectStep)
+            .attr('y', d => height - padding.bottom - d)
+            .attr('width', rectWidth)
+            .attr('height', d => d)
+        enterRect.append('rect')
+            .attr('fill', 'steelblue')
+            .attr('x', (d, i) => padding.left + i * rectStep)
+            .attr('y', d => height - padding.bottom - d)
+            .attr('width', rectWidth)
+            .attr('height', d => d)
+        exitRect.remove()
+
+        updateText.attr('fill', 'white')
+            .attr('font-size', '14px')
+            .attr('text-anchor', 'middle')
+            .attr('x', (d, i) => padding.left + i * rectStep)
+            .attr('y', d => height - padding.bottom - d)
+            .attr('dx', rectWidth / 2) 
+            .attr('dy', '1em')
+            .text(d => d)
+        enterText.append('text')
+            .attr('fill', 'white')
+            .attr('font-size', '14px')
+            .attr('text-anchor', 'middle')
+            .attr('x', (d, i) => padding.left + i * rectStep)
+            .attr('y', d => height - padding.bottom - d)
+            .attr('dx', rectWidth / 2) 
+            .attr('dy', '1em')
+            .text(d => d)
+        exitText.remove()
+    } 
+
+    function mysort() {
+        dataset.sort(d3.ascending)
+        draw()
+    }
+
+    function myadd() {
+        dataset.push(Math.floor(Math.random() * 100))
+        draw()
+    }
+
+
+
+
+</script>
+</html>

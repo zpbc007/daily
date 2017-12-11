@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../d3v3/common.css">
+</head>
+<script src="../d3/d3.js"></script>
+<body>
+    
+</body>
+<script>
+    // 定义数据
+    var dataSet = [
+            {blue: 4, red: 4},
+            {blue: 3, red: 8},
+            {blue: 5, red: 13},
+            {blue: 10, red: 18},
+            {blue: 8, red: 20},
+            {blue: 2, red: 22},
+            {blue: 3, red: 27},
+            {blue: 3, red: 29}
+        ]
+        sumData = []
+        padding = {top: 50, right: 50, bottom: 50, left: 50}
+        width = 600
+        height = 600
+        rectWidth = 40
+        rectStep = 60
+    
+    var svg = d3.select('body')
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height)
+        yScaleRect = d3.scaleLinear()
+            .domain([0, d3.max(dataSet, d => d.blue + d.red)])
+            .range([height - padding.top - padding.bottom, 0])
+        yScalePercent = d3.scaleLinear()
+            .domain([0, 1])
+            .range([height - padding.top - padding.bottom, 0])
+        leftAxis = d3.axisLeft()    
+            .scale(yScaleRect)
+        rightAxis = d3.axisRight()
+            .scale(yScalePercent)
+            .tickFormat(d3.format(".0%"))
+        rectBlue = svg.selectAll('.rectBlue')
+            .data(dataSet)
+            .enter()
+            .append('rect')
+            .attr('class', 'rectBlue')
+            .attr('fill', 'steelblue')
+            .attr('x', (d, i) => padding.left + i * rectStep)
+            .attr('y', (d, i) => {
+                return padding.top + yScaleRect(d.blue)
+            })
+            .attr('width', rectWidth)
+            .attr('height', d => height - padding.top - padding.bottom - yScaleRect(d.blue))
+        rectRed = svg.selectAll('.rectRed')
+            .data(dataSet)
+            .enter()
+            .append('rect')
+            .attr('class', 'rectRed')
+            .attr('fill', 'red')
+            .attr('x', (d, i) => padding.left + i * rectStep)
+            .attr('y', (d, i) => {
+                return padding.top + yScaleRect(d.red) - (height - padding.top - padding.bottom - yScaleRect(d.blue))
+            })
+            .attr('width', rectWidth)
+            .attr('height', d => height - padding.top - padding.bottom - yScaleRect(d.red))
+        linePath = d3.line()
+            .x( (d, i) => {
+                return padding.left + i * rectStep + rectWidth / 2
+            })
+            .y( (d, i) => {
+                debugger
+                return yScalePercent(d.red / (d.red + d.blue))
+            })
+    
+    svg.selectAll('path')
+        .data([dataSet])
+        .enter()
+        .append('path')
+        .attr('d', linePath)
+        .attr('fill', 'none')
+        .attr('stroke-width', 3)
+        .attr('stroke', 'green')
+
+    svg.append('g')
+        .attr('class', 'axis')
+        .attr('transform', `translate(${padding.left - 10}, ${padding.top})`)
+        .call(leftAxis)    
+    svg.append('g')
+        .attr('calss', 'axis')
+        .attr('transform', `translate(${width - padding.right}, ${padding.top})`)
+        .call(rightAxis)  
+</script>
+</html>

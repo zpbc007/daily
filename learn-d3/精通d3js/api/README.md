@@ -276,3 +276,145 @@
 - axis.tickSizeOuter 设定外刻度的长度（两端的刻度）
 - ~~axis.outerTickSize 同上~~
 - axis.tickFormat 明确地指定刻度格式
+
+## 颜色
+- d3.color 解析给定的CSS颜色名
+- d3.rgb 计算该颜色的RGB值
+- color.brighter 该颜色的高亮副本
+- color.darker 该颜色的暗副本
+- color.toString 将颜色格式化为一个十六进制RGB值字符串
+- d3.rgb 创建一个RGB颜色
+- d3.hsl 创建一个HSL颜色
+- d3.lab 创建一个Lab颜色
+- d3.hcl 创建一个HCL颜色
+- d3.cubehelix 创建一个Cubehelix颜色
+
+## 差值
+- d3.interpolate 插补任意值(返回的是个对象)
+    ```
+    var a = d3.rgb(255, 0, 0)   // 红色
+        b = d3.rgb(0, 255, 0)   // 绿色
+    
+    var compute = d3.interpolate(a, b)
+
+    console.log(compute(0))
+    console.log(compute(0.5))
+    console.log(compute(1))
+    ```
+
+## 线
+- d3.line 创建一个新的线生成器
+- ~~d3.svg.line 同上~~
+    ```
+    var lines  = [[80, 80], [200, 100], [200, 200], [100, 200]]
+        // 创建一个线段生成器
+        linePath = d3.svg.line()
+        // 添加路径
+        svg.append('path')
+            .attr('d', linePath(lines))
+            .attr('stroke', 'black')
+            .attr('stroke-width', '3px')
+            .attr('fill', 'none')
+    ```
+- line(data) 使用线段生成器绘制data数据
+- line.x 设置或获取线段x坐标的访问器
+- line.y 设置或获取y坐标的访问器
+- line.defined 设置或获取一个访问器，用于确认线段是否存在，只有判断为存在的数据才会被绘制
+    ```
+    var lines = [80, 120, 160, 200, 240, 280]
+
+    var linePath = d3.svg.line()
+            .x(d => return d)
+            .y((d, i) => i % 2 === 0 ? 40 : 120)
+    ```
+
+## 面积
+- d3.area 创建一个新的面积生成器
+- ~~ d3.svg.area 同上~~
+- 数据访问器有x(), x0(), x1(), y(), y1(), y2()
+    ```
+    var dataset = [80, 120, 130, 70, 60, 90]
+        areaPath = d3.svg.area()
+            .x((d, i) => 50 + i * 80)
+            .y0((d, i) => height / 2 )
+            .y1((d, i) => height / 2 - d)
+        svg.append('path')
+            .attr('d', areaPath(dataset))
+            .attr('stoke', 'black')
+            .attr('stoke-width', '3px')
+            .attr('fill', 'yellow')
+
+    ```
+
+## 弧
+- d3.arc 创建一个新的弧生成器
+- ~~d3.svg.arc() 同上~~
+- arc.innerRadius 设置内径
+- arc.outerRadius 设置外径
+- arc.startAngle 起始角度
+- arc.endAngle 结束角度
+    ```
+    var dataset = [
+        {startAngle: 0, endAngle: Math.PI * 0.6},
+        {startAngle: Math.PI * 0.6, endAngle: Math.PI},
+        {startAngle: Math.PI, endAngle: Math.PI * 1.7},
+        {startAngle: Math.PI * 1.7, endAngle: Math.PI * 2}
+    ]
+
+    var arcPath = d3.svg.arc()    
+            .innerRadius(0)
+            .outerRadius(100)
+
+    var color = d3.scale.category10()
+
+    svg.selectAll('path')
+        .data(dataset)
+        .enter()
+        .append('path')
+        .attr('d', d => {
+            debugger
+            return arcPath(d)
+        })
+        .attr('transform', 'translate(250, 250)')
+        .attr('stroke', 'black')
+        .attr('stroke-width', '2px')
+        .attr('fill', (d, i) => color(i))        
+
+    ```
+
+## 符号
+- d3.symbol 创建一个新的形状生成器
+- ~~d3.svg.symbol 同上~~
+- symbol 返回指定数据datum的路径字符串
+- symbol.type 设定或获取符号类型
+- symbol.size 设置符号尺寸
+- d3.symbols 符号类型数组
+- ~~d3.svg.symbolTypes 同上~~
+    ```
+    var n = 30
+    var dataset = []
+    
+    for(var i = 0; i < n; i++){
+        dataset.push({
+            size: Math.random() * 30 + 200,
+            type: d3.svg.symbolTypes[Math.floor(Math.random() * d3.svg.symbolTypes.length)]
+        })
+    }
+
+    var symbol = d3.svg.symbol()
+            .size(d => d.size)
+            .type(d => d.type)
+    var color = d3.scale.category20b()
+
+    svg.selectAll()
+        .data(dataset)
+        .enter()
+        .append('path')
+        .attr('d', d => symbol(d))
+        .attr('transform', (d, i) => {
+            var x = 100 + i % 5 * 20
+            var y = 100 + Math.floor(i / 5) * 20
+            return `translate(${x}, ${y})`
+        })
+        .attr('fill', (d, i) => color(i))
+    ```

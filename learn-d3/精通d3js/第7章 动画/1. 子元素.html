@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="../../d3v3/d3.v3.js"></script>
+<body>
+    
+</body>
+<script>
+    var dataset = [100, 100, 100]
+        svg = d3.select('body')
+            .append('svg')
+            .attr('width', 500)
+            .attr('height', 500)
+        g = svg.append('g')
+        rect = g.selectAll('rect') 
+            .data(dataset)
+            .enter()
+            .append('rect')
+            .attr('fill', 'steelblue')
+            .attr('id', (d, i) => `rect${i}`)
+            .attr('x', 10)
+            .attr('y', (d, i) => 10 + i * 35)
+            .attr('width', d => d)
+            .attr('height', 30)
+
+    g.transition()
+        .select('#rect1')
+        .attr('width', 300)
+</script>
+</html>

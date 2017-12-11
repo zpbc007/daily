@@ -418,3 +418,46 @@
         })
         .attr('fill', (d, i) => color(i))
     ```
+
+## 过渡
+- selection.transition 为选定元素创建一个过渡
+- transition.delay 设定延迟的时间
+- transition.duration 过渡持续时间
+- transition.ease 指定缓动函数
+    ```
+    svg.append('rect')
+        .attr('fill', 'steelblue')
+        .attr('x', 10)
+        .attr('y', 10)
+        .attr('width', 100)
+        .attr('height', 30)
+        .transition()
+        .attr('width', 300)
+    ```
+- transition.attr 使用默认插值器过渡属性
+- transition.attrTween 使用自定义插值器过渡属性
+- transition.style  同上
+- transition.styleTween 同上
+- transition.text 过渡开始时，将文本设置为value属性
+- transition.tween 将属性name按照函数factory进行过渡。
+    ```
+    var text = svg.append('text')
+            .attr('fill', 'black')
+            .attr('x', 100)
+            .attr('y', 10)
+            .attr('dy', '1.2em')
+            .attr('text-anchor', 'end')
+            .text(100)
+        initx = text.attr('x')
+        initText = text.text()
+        textTran = text.transition()
+        .duration(2000)
+        .tween('text', function() {
+            return (t) => {
+                d3.select(this)
+                    .attr('x', Number(initx) + t * 300)
+                    .text(Math.floor(Number(initText) + t * 300))
+            }
+        })
+    ```
+- transition.remove 过渡结束后，删除被选择元素

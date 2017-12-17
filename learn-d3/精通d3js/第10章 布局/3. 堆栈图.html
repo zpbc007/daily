@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="../../d3v3/common.css" rel="stylesheet">
+</head>
+<script src="../../d3v3/d3.v3.js"></script>
+<body>
+    
+</body>
+<script>
+    var dataset = [
+        {
+            name: 'PC', 
+            sales: [
+                {year: 2005, profit: 3000}, 
+                {year: 2006, profit: 1300}, 
+                {year: 2007, profit: 3700}, 
+                {year: 2008, profit: 4900}, 
+                {year: 2009, profit: 700}, 
+            ]
+        },
+        {
+            name: 'SmartPhone', 
+            sales: [
+                {year: 2005, profit: 2000}, 
+                {year: 2006, profit: 4000}, 
+                {year: 2007, profit: 1810}, 
+                {year: 2008, profit: 6540}, 
+                {year: 2009, profit: 2820}, 
+            ]
+        },
+        {
+            name: 'Software', 
+            sales: [
+                {year: 2005, profit: 1100}, 
+                {year: 2006, profit: 1700}, 
+                {year: 2007, profit: 1680}, 
+                {year: 2008, profit: 4000}, 
+                {year: 2009, profit: 4900}, 
+            ]
+        }
+    ]
+        width = 600
+        height = 600
+        svg = d3.select('body')
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height)
+
+    var stack = d3.layout.stack()
+            .values(d => d.sales)
+            .x(d => d.year)
+            .y(d => d.profit)
+        data = stack(dataset)
+        padding = {
+            left: 50, 
+            right: 100, 
+            top: 30, 
+            bottom: 30
+        }
+        xRangeWidth = width - padding.left - padding.right
+        xScale = d3.scale.ordinal()
+            .domain(data[0].sales.map(d => d.year))
+            .rangeBands([0, xRangeWidth], 0.3)
+        xAxis = d3.svg.axis()
+            .scale(xScale)
+            .orient('bottom')
+        maxProfit = d3.max(data[data.length - 1].sales, d => d.y0 + d.y)
+        yRangeWidth = height - padding.top - padding.bottom
+        yScale = d3.scale.linear()
+            .domain([0, maxProfit])
+            .range([0, yRangeWidth])
+        yAxis = d3.svg.axis()
+            .scale(yScale)
+            .orient('left')
+        color = d3.scale.category10()
+        groups = svg.selectAll('g')
+            .data(data)
+            .enter()
+            .append('g')
+            .style('fill', (d, i) => color(i))
+        rects = groups.selectAll('rect')
+            .data(d => d.sales)
+            .enter()
+            .append('rect')
+            .attr('x', d => xScale(d.year))
+            .attr('y', d => yRangeWidth - yScale(d.y0 + d.y))
+            .attr('width', d => xScale.rangeBand())
+            .attr('height', d => yScale(d.y))
+            .attr('transform', `translate(${padding.left}, ${padding.top})`)
+        
+    svg.append('g')
+        .attr('class', 'axis')
+        .attr('transform', `translate(${padding.left}, ${height - padding.bottom})`)
+        .call(xAxis)
+    svg.append('g')
+        .attr('class', 'axis')
+        .attr('transform', `translate(${padding.left}, ${padding.top})`)
+        .call(yAxis)
+</script>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="../d3/d3.js"></script>
+<body>
+    
+</body>
+<script>
+    var width = 500
+        height = 500
+        padding = {
+            top: 50, right: 50, bottom: 50, left: 50
+        }
+        rectHeight = 30
+        rectStep = 40
+        span = rectStep - rectHeight
+        colors = d3.interpolateViridis
+        dataset = [
+            {
+                text: '尚未联系',
+                value: 100
+            },
+            {
+                text: '初步接触',
+                value: 80
+            },
+            {
+                text: '意向过滤',
+                value: 60
+            },
+            {
+                text: '商务接触',
+                value: 40
+            },
+            {
+                text: '基本谈妥',
+                value: 20
+            }
+        ]
+        sumValue = d3.sum(dataset, d => d.value)
+        svg = d3.select('body')
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height)
+        xScale = d3.scaleLinear()
+            .domain([0, d3.max(dataset, d => d.value)])
+            .range([0, width - padding.left - padding.right])
+        rectAndTexts = svg.selectAll('g')
+            .data(dataset)
+            .enter()
+            .append('g')
+            .on('mouseover', function (d, i) {
+                d3.select(this)
+                    .select('rect')
+                    .transition()
+                    .duration(500)
+                    .attr('x', width / 2 - xScale(d.value / 2) - 20)
+                    .attr('width', xScale(d.value) + 40)
+                    .attr('height', rectHeight + span)
+                    .attr('y', padding.top + i * rectStep - span / 2)
+            })
+            .on('mouseout', function (d, i) {
+                d3.select(this)
+                    .select('rect')
+                    .transition()
+                    .duration(500)
+                    .attr('x', width / 2 - xScale(d.value / 2))
+                    .attr('width', xScale(d.value))
+                    .attr('height', rectHeight)
+                    .attr('y', padding.top + i * rectStep)
+            })
+    
+    rectAndTexts.each(function (d, i) {
+        d3.select(this)
+            .append('rect')
+            .attr('y', padding.top + i * rectStep)
+            .attr('x', width / 2 - xScale(d.value / 2))
+            .attr('width', xScale(d.value))
+            .attr('height', rectHeight)
+            .attr('fill', colors(1 - d.value / sumValue))
+        
+        d3.select(this)
+            .append('text')
+            .attr('y', padding.top + i * rectStep + rectHeight / 2)
+            .attr('x', width / 2)
+            .attr('fill', 'white')
+            .style('text-anchor', 'middle')
+            .style('dominant-baseline', 'middle')
+            .text(d.text)
+    })
+</script>
+</html>

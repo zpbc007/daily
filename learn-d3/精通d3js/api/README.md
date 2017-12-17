@@ -349,6 +349,8 @@
 ## 弧
 - d3.arc 创建一个新的弧生成器
 - ~~d3.svg.arc() 同上~~
+- arc.centroid 弧中心坐标
+    ![弧中心坐标](http://bl.ocks.org/mbostock/c274877f647361f3df7d)
 - arc.innerRadius 设置内径
 - arc.outerRadius 设置外径
 - arc.startAngle 起始角度
@@ -461,3 +463,127 @@
         })
     ```
 - transition.remove 过渡结束后，删除被选择元素
+
+## 拖拽
+- d3.drag 创建一个拖拽行为
+- ~~d3.behavior.drag 同上~~
+- drag.on() 监听拖拽事件。有三种事件类型：dragstart, drag, dragend
+- ~~drag.origin() 设定拖拽的起点~~
+    ```
+    var circles = [
+        {cx: 150, cy: 200, r: 30},
+        {cx: 250, cy: 200, r:30}
+    ]
+        drag = d3.behavior.drag()
+            .origin(function (d, i) {
+                return {x: d.cx, y: d.cy}
+            })
+            .on('dragstart', d => console.log('拖拽开始'))
+            .on('dragend', d => console.log('拖拽结束'))
+            .on('drag', function (d) {
+                d3.select(this)
+                    .attr('cx', d.cx = d3.event.x)
+                    .attr('cy', d.cy = d3.event.y)
+            })
+
+    svg.selectAll('circle')
+        .data(circles)
+        .enter()
+        .append('circle')
+        .attr('cx', d => d.cx)
+        .attr('cy', d => d.cy)
+        .attr('r', d => d.r)
+        .attr('fill', 'black')
+        .call(drag)
+
+    ```
+
+## 缩放
+- d3.zoom 创建缩放行为
+- ~~d3.behavior.zoom 同上~~
+- zoom.translateBy 设定当前的缩放平移量 默认为[0, 0]
+- ~~zoom.translate 同上~~
+- zoom.scaleBy 设定初始的缩放量，默认为1
+- ~~zoom.scale 同上~~
+- zoom.scaleExtent 设定缩放的范围，默认为[0, 无穷大]
+- ~~zoom.center 设定缩放的中心，默认为鼠标当前位置~~
+- ~~zoom.x 设定x方向的比例尺，该比例尺会随着放大缩小自动改变其定义域~~
+- ~~zoom.y 设定y方向的比例尺，该比例尺会随着放大缩小自动改变其定义域~~
+- zoom.on 设置事件类型和监听。类型有三种zoomstart, zoom, zoomend
+    ```
+    var circles = [
+        {cx: 150, cy: 200, r: 30}, 
+        {cx: 220, cy: 200, r: 30},
+        {cx: 150, cy: 270, r: 30},
+        {cx: 220, cy: 270, r: 30}
+    ]
+        zoom = d3.behavior.zoom()
+            .scaleExtent([1, 10])
+            .on('zoom', function(d) {
+                debugger
+                d3.select(this)
+                    .attr('transform', `translate(${d3.event.translate}), scale(${d3.event.scale})`)
+            })
+        g = svg.append('g')
+            .call(zoom)
+    
+    g.selectAll('circle')
+        .data(circles)
+        .enter()
+        .append('circle')
+        .attr('cx', d => d.cx)
+        .attr('cy', d => d.cy)
+        .attr('r', d => d.r)
+        .attr('fill', 'black')
+    ```
+
+## 请求
+- d3.json 请求JSON文件
+- d3.csv 请求CSV文件
+- d3.xml 请求xml文件
+- d3.html 请求html文件
+- d3.text 请求文本文件
+- d3.tsv 请求tsv文件
+
+## 层次布局
+- ~~d3.layout.pie 创建一个饼状图布局~~
+- pie 创建一个饼状图布局
+- pie.value 设定或获取值访问器
+- pie.sort 设定或获取比较器用于排序
+- pie.startAngle 设定或获取饼状图的起始角度
+- pie.endAngle 设定或获取饼状图的终止角度
+
+## 力导向图
+- ~~d3.layout.force 创建一个力导向图~~
+- ~~force.size 设定或获取力导向图的作用范围~~
+### 节点相关
+- ~~force.nodes 设定或获取力导向图布局的节点数组~~
+- ~~force.friction 设定或获取摩擦系数~~
+- ~~force.charge 设定或获取节点的电荷数~~
+- ~~force.chargeDistance 设定或获取引力的作用距离，超这个距离，则没有引力的作用~~
+- ~~force.theta 设定或获取限制值~~
+- ~~force.gravity 设定或获取重力。以size设定的中心产生重力，各节点都会向中心运动~~
+### 连线相关
+- ~~force.links 设定或获取力导向图布局的连线数组~~
+- ~~force.linkDistance 设定或获取连线的长度~~
+- ~~force.linkStrength 设定或获取连线的坚硬度~~
+### 动画相关
+- ~~force.alpha 设定或获取动画的冷却系数~~
+- ~~force.start 将alpha设定为0.1后开始计算~~
+- ~~force.stop 等价于alpah(0) 停止动画
+- ~~force.resume 重启动画~~
+- ~~force.tick 动画计算进入下一步~~
+- ~~force.on 监听 三种事件类型 start,tick,end~~
+### 交互相关
+- ~~froce.drag 用于拖拽操作的函数~~
+
+## 堆叠
+- d3.stack 创建衣蛾新的堆叠生成器
+- ~~d3.layout.stack 同上~~
+- stack.value 设定或获取各层的值访问器
+- ~~stack.values 同上~~
+- stack.offset 设定或获取堆栈图的堆叠算法
+- stack.order 设定或获取各层的顺序
+- ~~stack.x 设定或获取x访问器~~
+- ~~stack.y 设定或获取y访问器~~
+- ~~stack.out 设定或获取计算后数据的保存方法~~

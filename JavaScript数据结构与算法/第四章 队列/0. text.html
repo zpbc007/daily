@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script type="module">
+    import {Queue, PriorityQueue, hotPotato} from './1. queue.js'
+
+    let queue = new Queue()
+    queue.enqueue(1)
+    queue.enqueue(2)
+    queue.enqueue(3)
+
+    console.group('Queue')
+    console.log(`dequeue: ${queue.dequeue()}`)
+    console.log(`front: ${queue.front()}`)
+    console.log(`isEmpty: ${queue.isEmpty()}`)
+    console.log(`size: ${queue.size()}`)
+    console.log(`print: ${queue.print()}`)
+    console.groupEnd()
+
+    console.group('PriorityQueue')
+    var priorityQueue = new PriorityQueue();
+    priorityQueue.enqueue("John", 2);
+    priorityQueue.enqueue("Jack", 1);
+    priorityQueue.enqueue("Camila", 1);
+    priorityQueue.print();
+    console.groupEnd()
+
+    console.group('hotPotato')
+    var names = ['John','Jack','Camila','Ingrid','Carl']; 
+    var winner = hotPotato(names, 7); 
+    console.log('胜利者:' + winner);
+    console.groupEnd()
+</script>
+<body>
+    
+</body>
+</html>

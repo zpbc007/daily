@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script type="module">
+    import Set from './1. set.js'
+    import HashTable from './2.HashTable.js'
+
+    let set = new Set()
+
+    set.add(1)
+    set.add(2)
+
+    console.log(`values: ${set.values()}`)
+    console.log(`has: ${set.has(2)}`)
+    console.log(`size: ${set.size()}`)
+
+    set.remove(1)
+    console.log(`values: ${set.values()}`)
+    set.remove(2)
+    console.log(`values: ${set.values()}`)
+
+    let setA = new Set()
+    setA.add(1)
+    setA.add(2)
+
+    let setB = new Set()
+    setB.add(2)
+    setB.add(3)
+    
+    let unionAB = setA.union(setB)
+    console.log(`union:${unionAB.values()}`)
+
+    let intersecitonAB = setA.intersection(setB)
+    console.log(`intersction:${intersecitonAB.values()}`)
+
+    let differenceAB = setA.difference(setB)
+    console.log(`difference:${differenceAB.values()}`)
+
+
+    let hash = new HashTable()
+    hash.put('Gandalf', '123')
+    hash.put('John', '456')
+    hash.put('Tyrion', '789')
+</script>
+<body>
+    
+</body>
+</html>

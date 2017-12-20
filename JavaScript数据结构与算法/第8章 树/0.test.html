@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script type="module">
+    import BinarySearchTree from './1.BinarySearchTree.js'
+
+    let binarySearchTree = new BinarySearchTree()
+
+    binarySearchTree.insert(11)
+    binarySearchTree.insert(7)
+    binarySearchTree.insert(15)
+    binarySearchTree.insert(5)
+    binarySearchTree.insert(3)
+    binarySearchTree.insert(9)
+    binarySearchTree.insert(8)
+    binarySearchTree.insert(10)
+    binarySearchTree.insert(13)
+    binarySearchTree.insert(12)
+    binarySearchTree.insert(14)
+    binarySearchTree.insert(20)
+    binarySearchTree.insert(18)
+    binarySearchTree.insert(25)
+    binarySearchTree.insert(6)
+
+    function printNode(node) {
+        console.log(node)
+    }
+
+    console.group('inOrderTraverse 中序遍历')
+    binarySearchTree.inOrderTraverse(printNode)
+    console.groupEnd()
+
+    console.group('preOrderTraverse 先序遍历')
+    binarySearchTree.preOrderTraverse(printNode)
+    console.groupEnd()
+
+    console.group('postOrderTraverse 后序遍历')
+    binarySearchTree.postOrderTraverse(printNode)
+    console.groupEnd()
+
+    console.group('最小值')
+    console.log(binarySearchTree.min())
+    console.groupEnd()
+
+    console.group('查找')
+    console.log(binarySearchTree.search(1) ? 'Key 1 found' : 'Key 1 not found')
+    console.log(binarySearchTree.search(8) ? 'Key 8 found' : 'Key 8 not found')
+    console.groupEnd()
+
+    console.group('删除')
+    console.log(binarySearchTree.remove(15))
+    console.groupEnd()
+
+    console.group('preOrderTraverse 中序遍历')
+    binarySearchTree.inOrderTraverse(printNode)
+    console.groupEnd()
+
+</script>
+<body>
+    
+</body>
+</html>

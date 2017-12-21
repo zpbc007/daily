@@ -108,3 +108,5 @@ function LinkedList () {
         return head
     }
 }
+
+export default LinkedList

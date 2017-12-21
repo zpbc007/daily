@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script type="module">
+    import Graph from './1.Graph.js'
+    import Stack from '../第3章 栈/1. stack.js'
+
+    let graph = new Graph()
+    let myVertices = ['A','B','C','D','E','F','G','H','I']
+    for (var i=0; i<myVertices.length; i++){ 
+        graph.addVertex(myVertices[i])
+    }
+    graph.addEdge('A', 'B')
+    graph.addEdge('A', 'C')
+    graph.addEdge('A', 'D')
+    graph.addEdge('C', 'D')
+    graph.addEdge('C', 'G')
+    graph.addEdge('D', 'G')
+    graph.addEdge('D', 'H')
+    graph.addEdge('B', 'E')
+    graph.addEdge('B', 'F')
+    graph.addEdge('E', 'I')
+
+    console.log(graph.toString())
+
+    function printNode(value) {
+        console.log(`Visited vertex: ${value}`)
+    }
+    console.group('广度优先')
+    graph.bfs(myVertices[0], printNode)
+    console.groupEnd()
+
+    console.group('广度优先，最短路径')
+    let shortestPathA = graph.BFS(myVertices[0])
+    console.log(shortestPathA)
+    console.groupEnd()
+
+    console.group('绘制路径')
+    // 通过前溯点数组 构建从A到其他定点的路径
+    let fromVertex = myVertices[0]
+    for (let i =1; i < myVertices.length; i++) {
+        let toVertex = myVertices[i],
+            path = new Stack()
+        
+        for (let v = toVertex; v !== fromVertex; v = shortestPathA.predecessors[v]) {
+            path.push(v)
+        }
+
+        path.push(fromVertex)
+        let s = path.pop()
+        while(!path.isEmpty()) {
+            s += ` - ${path.pop()}` 
+        }
+        console.log(s)
+    }
+    console.groupEnd()
+
+    console.group('深度优先')
+    graph.dfs(printNode)
+    console.groupEnd()
+
+    console.group('深度优先 改进')
+    console.log(graph.DFS(printNode))
+    console.groupEnd()
+
+
+    graph = new Graph()
+    myVertices = ['A','B','C','D','E','F']
+    for (i=0; i<myVertices.length; i++){
+        graph.addVertex(myVertices[i])
+    }
+    graph.addEdge('A', 'C')
+    graph.addEdge('A', 'D')
+    graph.addEdge('B', 'D')
+    graph.addEdge('B', 'E')
+    graph.addEdge('C', 'F')
+    graph.addEdge('F', 'E')
+    let result = graph.DFS()
+    console.log(result)
+</script>
+<body>
+    
+</body>
+</html>

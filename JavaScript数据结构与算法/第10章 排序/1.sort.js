@@ -150,6 +150,12 @@ function ArrayList () {
 
         return i
     }
+
+    let swapQuickSort = function (array, index1, index2) {
+        let aux = array[index1]
+        array[index1] = array[index2]
+        array[index2] = aux
+    }
 }
 
 export default ArrayList

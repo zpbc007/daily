@@ -50,6 +50,20 @@
     array.mergeSort()
     console.log(array.toString())
     console.groupEnd()
+
+    console.group('quickSort')
+    array = new ArrayList()
+    array.insert(3)
+    array.insert(5)
+    array.insert(1)
+    array.insert(6)
+    array.insert(4)
+    array.insert(7)
+    array.insert(2)
+    console.log(array.toString())
+    array.quickSort()
+    console.log(array.toString())
+    console.groupEnd()
 </script>
 <body>
     

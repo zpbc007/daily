@@ -1,0 +1,22 @@
+{
+  "name": "my-book",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "antd": "^3.0.2",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-scripts": "1.0.17"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "tsc",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "@types/antd": "^1.0.0",
+    "@types/react": "^16.0.31",
+    "typescript": "^2.6.2"
+  }
+}

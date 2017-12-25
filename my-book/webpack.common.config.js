@@ -59,11 +59,12 @@ const commonConfig = {
         extensions: ['.js', '.jsx'],
         alias: {
             pages: path.resolve(__dirname, './src/pages'),
-            component: path.resolve(__dirname, './src/component'),
+            components: path.resolve(__dirname, './src/components'),
             router: path.resolve(__dirname, './src/router'),
             actions: path.resolve(__dirname, './src/redux/actions'),
             reducers: path.resolve(__dirname, './src/redux/reducers'),
-            reduxPath: path.resolve(__dirname, './src/redux')
+            reduxPath: path.resolve(__dirname, './src/redux'),
+            mock: path.resolve(__dirname, './mock')
         }
     }
 }

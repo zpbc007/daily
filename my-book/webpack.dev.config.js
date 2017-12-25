@@ -1,6 +1,6 @@
 const merge = require('webpack-merge')
 const path = require('path')
-console.log(merge)
+const webpack = require('webpack')
 
 const commonConfig = require('./webpack.common.config')
 
@@ -28,11 +28,16 @@ const devConfig = {
     module: {
         rules: [
             {
-                test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                test: /\.(css|scss)$/,
+                use: ['style-loader', 'css-loader?modules&localIdentName=[local]-[hash:base64:5]', 'postcss-loader']
             }
         ]
-    }
+    },
+    plugins: [
+        new webpack.DefinePlugin({
+            MOCK: true
+        })
+    ]
 }
 
 module.exports = merge({

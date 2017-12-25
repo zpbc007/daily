@@ -1,9 +1,12 @@
+const merge = require('webpack-merge')
 const path = require('path')
-// 自动生成index.html
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const webpack = require('webpack')
+console.log(merge)
 
-module.exports = {
+const commonConfig = require('./webpack.common.config')
+
+const devConfig = {
+    // enable sourceMap
+    devtool: 'inline-source-map',
     // 入口
     entry: {
         app: [
@@ -12,26 +15,10 @@ module.exports = {
             'react-hot-loader/patch',
             path.resolve(__dirname, './src/index.jsx'),
         ],
-        vendor: ['react', 'react-router-dom', 'redux', 'react-dom', 'react-redux']
     },
     // 输出
     output: {
-        path: path.resolve(__dirname, './dist'),
         filename: '[name].[hash].js',
-        chunkFilename: '[name].[chunkhash].js'
-    },
-    // enable sourceMap
-    devtool: 'inline-source-map',
-    resolve: {
-        extensions: ['.js', '.jsx'],
-        alias: {
-            pages: path.resolve(__dirname, './src/pages'),
-            component: path.resolve(__dirname, './src/component'),
-            router: path.resolve(__dirname, './src/router'),
-            actions: path.resolve(__dirname, './src/redux/actions'),
-            reducers: path.resolve(__dirname, './src/redux/reducers'),
-            reduxPath: path.resolve(__dirname, './src/redux')
-        }
     },
     devServer: {
         contentBase: path.resolve(__dirname, './dist'),
@@ -41,36 +28,19 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        cacheDirectory: true
-                    }
-                }
-            },
-            {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader']
-            },
-            {
-                test: /\.(png|jpg|gif|jpeg)$/,
-                use: [{
-                    loader: 'url-loader',
-                    options: {
-                        limit: 8192
-                    }
-                }]
             }
         ]
-    },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: 'src/index.html'
-        }),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor'
-        })
-    ]
+    }
 }
+
+module.exports = merge({
+    customizeArray(a, b, key) {
+        // entry.app 不合并 全部替换
+        if (key === 'entry.app') {
+            return b
+        }
+        return undefined
+    }
+})(commonConfig, devConfig)

@@ -2,6 +2,7 @@ const path = require('path')
 // 自动生成index.html
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
+const {TsConfigPathsPlugin} = require('awesome-typescript-loader')
 
 const commonConfig = {
     // 入口
@@ -21,6 +22,10 @@ const commonConfig = {
     },
     module: {
         rules: [
+            {
+                test: /\.(ts|tsx)$/,
+                loader: 'awesome-typescript-loader'
+            },
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
@@ -56,16 +61,20 @@ const commonConfig = {
         })
     ],
     resolve: {
-        extensions: ['.js', '.jsx'],
-        alias: {
-            pages: path.resolve(__dirname, './src/pages'),
-            components: path.resolve(__dirname, './src/components'),
-            router: path.resolve(__dirname, './src/router'),
-            actions: path.resolve(__dirname, './src/redux/actions'),
-            reducers: path.resolve(__dirname, './src/redux/reducers'),
-            reduxPath: path.resolve(__dirname, './src/redux'),
-            mock: path.resolve(__dirname, './mock')
-        }
+        extensions: ['.ts', '.tsx', '.js', '.jsx'],
+        // alias: {
+        //     pages: path.resolve(__dirname, './src/pages'),
+        //     components: path.resolve(__dirname, './src/components'),
+        //     router: path.resolve(__dirname, './src/router'),
+        //     actions: path.resolve(__dirname, './src/redux/actions'),
+        //     reducers: path.resolve(__dirname, './src/redux/reducers'),
+        //     reduxPath: path.resolve(__dirname, './src/redux'),
+        //     mock: path.resolve(__dirname, './mock')
+        // },
+        plugins: [
+            // 使用tsconfig.json配置alias
+            new TsConfigPathsPlugin()
+        ]
     }
 }
 

@@ -1,5 +1,5 @@
 import {createStore, applyMiddleware} from 'redux'
-import combineReducers from 'reduxPath/reducers'
+import combineReducers from '@redux/reducers'
 
 import promiseMiddleware from './middleware/promiseMiddleware'
 

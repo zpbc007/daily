@@ -64,7 +64,8 @@ const commonConfig = {
             actions: path.resolve(__dirname, './src/redux/actions'),
             reducers: path.resolve(__dirname, './src/redux/reducers'),
             reduxPath: path.resolve(__dirname, './src/redux'),
-            mock: path.resolve(__dirname, './mock')
+            mock: path.resolve(__dirname, './mock'),
+            constant: path.resolve(__dirname, './src/constant')
         }
     }
 }

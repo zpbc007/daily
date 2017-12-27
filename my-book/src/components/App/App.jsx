@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
-import { Layout, Menu, Icon} from 'antd'
+import { Layout, Icon} from 'antd'
 const { Header, Sider, Content} = Layout
 
-import Nav from 'components/Nav/Nav'
+import SideMenu from 'components/SideMenu/SideMenu'
 import getRouter from 'router/router'
 
 export default class App extends Component {
@@ -30,7 +30,7 @@ export default class App extends Component {
                     collapsible
                     collapsed={this.state.collapsed}
                     onCollapse={this.onCollapse}>
-                    <Nav/>
+                    <SideMenu/>
                 </Sider>
                 {/* 右侧内容区域 */}
                 <Layout>

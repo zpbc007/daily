@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script type="module">
+    import { LinkList, Node } from './index.js'
+ 
+    window.onload = function () {
+        let list = new LinkList()
+        // 添加元素
+        list.insert(0, new Node('a'))
+        list.insert(1, new Node('b'))
+        list.insert(2, new Node('c'))
+        // 获取对应位置的元素
+        list.getElement(0)
+        // 删除对应位置的元素
+        list.deleteNode(0)
+
+        let list2 = new LinkList()
+        list2.createListHead(10)
+
+        let list3 = new LinkList()
+        list3.createListTail(10)
+
+        let list4 = new LinkList()
+        list4.createListHead(10)
+        list4.deleteAll()
+        debugger
+    }    
+</script>
+<body>
+    
+</body>
+</html>

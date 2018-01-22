@@ -28,6 +28,7 @@ import {
 import Trend from '../../components/Trend';
 import NumberInfo from '../../components/NumberInfo';
 import { getTimeDistance } from '../../utils/utils';
+import CountDown from '../../components/CountDown';
 
 import styles from './Analysis.less';
 
@@ -41,6 +42,8 @@ for (let i = 0; i < 7; i += 1) {
     total: 323234,
   });
 }
+
+const targetTime = new Date().getTime() + 3900000;
 
 @connect(({ chart, loading }) => ({
   chart,
@@ -482,6 +485,11 @@ export default class Analysis extends Component {
             ))}
           </Tabs>
         </Card>
+        <Row>
+          <Col>
+            <CountDown style={{ fontSize: 50 }} target={targetTime} />
+          </Col>
+        </Row>
       </div>
     );
   }
